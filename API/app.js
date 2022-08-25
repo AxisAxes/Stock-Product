@@ -8,19 +8,10 @@ const routes = require('./routes/index');
 
 const app = express();
 const corsOpts = {
-  origin:'http://localhost:8888',
-
-  methods: [
-    'GET',
-    'POST',
-  ],
-
-  allowedHeaders: [
-    '*',
-  ],
-  maxAge: [
-    '86400',
-  ]
+    "origin": "*",
+    "methods": "GET,POST",
+    "preflightContinue": true,
+    "optionsSuccessStatus": 204
 };
 app.use(cors());
 

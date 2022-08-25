@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import DropZone from '../DropZone'
 import Papa from 'papaparse'
 import ApiController from '../ApiController'
 
@@ -8,7 +7,7 @@ export default function Register() {
   const [parsedData, setParsedData] = useState([]);
   const [tableRows, setTableRows] = useState([]);
   const [values, setValues] = useState([]);
-  const messageResponse = {};
+  var messageResponse = {};
 
   const changeHandler = (event) => {
     Papa.parse(event.target.files[0], {
@@ -36,7 +35,7 @@ export default function Register() {
   const submitToApi = async (event) => {
     console.log(parsedData);
     try {
-      const res = await ApiController.post('https://localhost:8888/list', parsedData)
+      const res = await ApiController.post('https://localhost:8888/register', parsedData)
       console.log(res)
       messageResponse = res;
     } catch (error) {

@@ -2,7 +2,7 @@ const express = require('express');
 const routes = express.Router();
 const db = require('../db');
 
-routes.get('/list', async(req, res)=> {
+routes.get('/list',async(req, res)=> {
     const products = await db.selectAllProducts();
     return res.json(products);
 });
