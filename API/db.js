@@ -12,20 +12,47 @@ async function connect(){
 async function selectAllProducts(){
     const conn = await connect();
     const [rows] = await conn.query('SELECT * FROM pet;');
+    console.log(rows)
     return rows;
+}
+
+async function insertPolicy(policy) {
+    const conn = await connect();
+    const sql = 'INSERT INTO policy(policy1, policy2, policy3, policyID) VALUES (?,?,?,?);';
+    const values = [
+        
+        element.Date, parseFloat(element.Open),
+        parseFloat(element.High), parseFloat(element.Low), 
+        parseFloat(element.Close), parseFloat(element.Volume), 1
+        
+    ];
+    return await conn.query(sql, values);
+
+    
 }
 
 async function insertProducts(pet) {
     const conn = await connect();
-    const sql = 'INSERT INTO pet(dataP, openP, high, lowP, closeP, volume, status) VALUES (?,?,?,?,?,?,?);';
-    const addingID = 'SELECT itemID FROM pet ORDER BY itemID DESC LIMIT 1'
-    const values = [
-        Integer.parseInt(addingID)+1,
-        pet.dataP, pet.openP,
-        pet.high, pet.lowP, 
-        pet.closeP, pet.volume, pet.status
-    ];
-    return await conn.query(sql, values);
+    var valuesF = [];
+    for (let size = 0; size < pet.length; size++) {
+        const element = pet[size];
+        console.log(element.Date)
+        const sql = 'INSERT INTO pet(dataP, openP, high, lowP, closeP, volume, itemID, statusID,) VALUES (?,?,?,?,?,?,?,?);';
+        const addingID = await conn.query('SELECT itemID FROM pet ORDER BY itemID DESC LIMIT 1')
+        console.log(addingID[0][0].itemID)
+        const values = [
+            
+            element.Date, parseFloat(element.Open),
+            parseFloat(element.High), parseFloat(element.Low), 
+            parseFloat(element.Close), parseFloat(element.Volume),addingID[0][0].itemID+1 , 1
+            
+        ];
+        valuesF.push(conn.query(sql, values));
+
+    }
+    console.log(valuesF)
+    return await valuesF;
+  
 }
 
 connect();

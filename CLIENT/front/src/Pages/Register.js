@@ -35,7 +35,7 @@ export default function Register() {
   const submitToApi = async (event) => {
     console.log(parsedData);
     try {
-      const res = await ApiController.post('https://localhost:8888/register', parsedData)
+      const res = await ApiController.post('http://localhost:8888/insert', parsedData)
       console.log(res)
       messageResponse = res;
     } catch (error) {

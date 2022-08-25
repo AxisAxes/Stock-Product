@@ -4,27 +4,17 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const routes = require('./routes/index');
 
 const app = express();
-const corsOpts = {
-    "origin": "*",
-    "methods": "GET,POST",
-    "preflightContinue": true,
-    "optionsSuccessStatus": 204
-};
 app.use(cors());
 
+const routes = require('./routes/index');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-// Access-Control-Allow-Origin: https://perfil.treinaweb.com.br
-// Access-Control-Allow-Methods: POST, GET
-// Access-Control-Allow-Headers: *
-// Access-Control-Max-Age: 86400
 
 
 

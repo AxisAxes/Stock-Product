@@ -7,15 +7,19 @@ export default function Table() {
 
 
   useEffect(()=>{
-    ApiController.get('https://localhost:8888/list').then((response) => setDataState(response.data))
+    ApiController.get('http://localhost:8888/list').then((response) => setDataState(response.data))
     .catch((err) => {
       console.error("ops! ocorreu um erro" + err);
     });
 
-  })
-  console.log([dataState, setDataState])
+  }, [])
+  console.log(setDataState)
   return (
-    <div>{dataState}</div>
+    <div>
+      {setDataState}
+     
+    </div>
+    
   )
 }
 

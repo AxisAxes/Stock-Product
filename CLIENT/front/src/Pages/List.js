@@ -4,7 +4,7 @@ import Table from '../Table';
 export default function List() {
   return (
     <div>
-      <Table></Table>
+      <h1><Table></Table></h1>
 
     </div>
   )
