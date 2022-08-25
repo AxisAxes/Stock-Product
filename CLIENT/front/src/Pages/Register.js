@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Papa from 'papaparse'
 import ApiController from '../ApiController'
+import { Notifications } from 'react-push-notification';
+import addNotification from 'react-push-notification';
 
 export default function Register() {
 
@@ -8,6 +10,26 @@ export default function Register() {
   const [tableRows, setTableRows] = useState([]);
   const [values, setValues] = useState([]);
   var messageResponse = {};
+
+  function warningNotification (){
+    addNotification({
+      title: 'Erro',
+      subtitle: 'Impossivel salvar',
+      theme: 'red',
+      closeButton:"X",
+    })
+  };
+  
+  function successNotification (){
+    addNotification({
+      title: 'Sucesso!',
+      subtitle: 'Tudo foi salvo com sucesso',
+      theme: 'light',
+      closeButton:"X",
+      backgroundTop:"green",
+      backgroundBottom:"yellowgreen"
+    })
+  };
 
   const changeHandler = (event) => {
     Papa.parse(event.target.files[0], {
@@ -33,13 +55,14 @@ export default function Register() {
 
   };
   const submitToApi = async (event) => {
-    console.log(parsedData);
     try {
       const res = await ApiController.post('http://localhost:8888/insert', parsedData)
-      console.log(res)
       messageResponse = res;
+      successNotification();
+      
     } catch (error) {
       console.error("ops! ocorreu um erro" + error);
+      warningNotification();
     }
   }
   return (
@@ -49,6 +72,7 @@ export default function Register() {
         <button type="button" onClick={submitToApi}>Cadastrar itens</button>
       </form>
       
+        <Notifications />
 
       <table>
         <thead>

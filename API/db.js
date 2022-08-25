@@ -37,7 +37,7 @@ async function insertProducts(pet) {
     for (let size = 0; size < pet.length; size++) {
         const element = pet[size];
         console.log(element.Date)
-        const sql = 'INSERT INTO pet(dataP, openP, high, lowP, closeP, volume, itemID, statusID,) VALUES (?,?,?,?,?,?,?,?);';
+        const sql = 'INSERT INTO pet VALUES (?,?,?,?,?,?,?,?);';
         const addingID = await conn.query('SELECT itemID FROM pet ORDER BY itemID DESC LIMIT 1')
         console.log(addingID[0][0].itemID)
         const values = [
